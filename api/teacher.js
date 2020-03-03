@@ -15,5 +15,15 @@ export default{
       url: `${apiPath}/get/${id}`,
       method: 'get'
     })
+  },
+  getPageList(page, limit) {
+    return request({
+      url: `${apiPath}/page-list`,
+      method: 'get',
+      params: {
+        page,
+        limit
+      }
+    })
   }
 }
