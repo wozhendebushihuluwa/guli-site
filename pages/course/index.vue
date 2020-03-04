@@ -53,7 +53,7 @@
                     @click="searchSubjectLevelTwo(item.id)">{{ item.title }}</a>
                 </li>
               </ul>
-              <!-- /二级类别 结束-->
+              <!-- /二级类别 结束 -->
             </dd>
           </dl>
           <div class="clear"/>
@@ -194,14 +194,14 @@
 
 <script>
 import subjectApi from '~/api/subject'
-// import courseApi from '~/api/course'
+import courseApi from '~/api/course'
 import querystring from 'querystring'
 export default {
 
   async asyncData({ route }) {
     const searchObj = {}
-    // searchObj.page = route.query.page || 1
-    // searchObj.limit = 8
+    searchObj.page = route.query.page || 1
+    searchObj.limit = 8
     searchObj.subjectParentId = route.query.subjectParentId || ''
     searchObj.subjectId = route.query.subjectId || ''
     searchObj.buyCountSort = route.query.buyCountSort || ''
@@ -219,11 +219,11 @@ export default {
     }
 
     // 分页课程列表
-    // const courseListResponse = await courseApi.getPageList(searchObj)
+    const courseListResponse = await courseApi.getPageList(searchObj)
     return {
       subjectNestedList: subjectNestedList,
       subSubjectList: subSubjectList,
-      // data: courseListResponse.data.data,
+      data: courseListResponse.data.data,
       searchObj: searchObj
     }
   },
