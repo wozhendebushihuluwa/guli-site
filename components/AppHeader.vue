@@ -27,7 +27,7 @@
         </ul>
         <!-- / nav -->
         <ul class="h-r-login">
-          <li id="no-login">
+          <li v-if="!loginInfo.id" id="no-login">
             <a href="/login" title="登录">
               <em class="icon18 login-icon">&nbsp;</em>
               <span class="vam ml5">登录</span>
@@ -37,24 +37,27 @@
               <span class="vam ml5">注册</span>
             </a>
           </li>
-          <li id="is-login-one" class="mr10">
+          <li v-if="loginInfo.id" id="is-login-one" class="mr10">
             <a id="headerMsgCountId" href="#" title="消息">
               <em class="icon18 news-icon">&nbsp;</em>
             </a>
             <q class="red-point">&nbsp;</q>
           </li>
-          <li id="is-login-two" class="h-r-user undis">
+          <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
             <a href="/ucenter" title>
               <img
-                src="~/assets/img/avatar-boy.gif"
+                :src="loginInfo.avatar"
                 width="30"
                 height="30"
                 class="vam picImg"
-                alt
-              >
-              <span id="userName" class="vam disIb"/>
+                alt>
+              <span id="userName" class="vam disIb">{{ loginInfo.nickname }}</span>
             </a>
-            <a href="javascript:void(0)" title="退出" class="ml5">退出</a>
+            <a
+              href="javascript:void(0);"
+              title="退出"
+              class="ml5"
+              @click="logout()">退出</a>
           </li>
           <!-- /未登录显示第1 li；登录后显示第2，3 li -->
         </ul>
@@ -77,3 +80,35 @@
   </header>
   <!-- /公共头 -->
 </template>
+<script>
+import cookie from 'js-cookie'
+export default {
+  data() {
+    return {
+      loginInfo: {}
+    }
+  },
+
+  created() {
+    this.showInfo()
+  },
+
+  methods: {
+    showInfo() {
+      // 从cookie中得到用户信息并渲染到页面
+      var json = cookie.get('guli_user')
+      if (json) {
+        this.loginInfo = JSON.parse(json)
+      }
+    },
+    logout() {
+    // debugger
+      cookie.set('guli_user', '', { domain: 'localhost' })
+      cookie.set('guli_token', '', { domain: 'localhost' })
+
+      // 跳转页面
+      window.location.href = '/'
+    }
+  }
+}
+</script>

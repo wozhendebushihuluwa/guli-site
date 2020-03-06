@@ -37,10 +37,12 @@ module.exports = {
     }
   },
   plugins: [
-    { src: '~/plugins/nuxt-swiper-plugin.js', ssr: false }
+    { src: '~/plugins/nuxt-swiper-plugin.js', ssr: false },
+    { src: '~/plugins/element-ui-plugin.js', ssr: false }
   ],
   css: [
-    'swiper/dist/css/swiper.css'
+    'swiper/dist/css/swiper.css',
+    'element-ui/lib/theme-chalk/index.css'
   ]
 }
 
